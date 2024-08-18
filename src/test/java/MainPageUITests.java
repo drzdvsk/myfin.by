@@ -34,7 +34,7 @@ public class MainPageUITests {
                         "https://myfin.by/images/new/logo-myfin--new.svg",
                         "MYFIN",
                         "MYFIN",
-                        List.of("Все банки Реклама Стать автором Войти")
+                        List.of("Geely под 5.25%", "Все банки", "Реклама", "Стать автором")
                 )
         );
     }

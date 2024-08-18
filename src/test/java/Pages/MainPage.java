@@ -27,7 +27,7 @@ public class MainPage {
         }
     }
     public void checkMainPageHeaderLinks(List<String> expectedLinks) {
-        $$(".header-upd__links-list")
+        $$(".header-upd__links-list li")
                 .filter(visible)
                 .shouldHave(texts(expectedLinks));
     }
