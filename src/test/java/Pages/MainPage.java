@@ -12,8 +12,9 @@ public class MainPage {
     private final SelenideElement
             cookie = $(".cookie__btn button"),
             headerLogo = $(".header-upd__logo img"),
-            headerMenu = $(".main-nav_list");
-
+            headerSearchButton = $(".main-nav_btn-search"),
+            headerSearchTextArea = $("input.main-nav_search.active"),
+            searchResults = $(".gsc-expansionArea");
 
     public MainPage openMainPage() {
         open("https://myfin.by/");
@@ -43,5 +44,24 @@ public class MainPage {
                 .shouldHave(texts(expectedMenuSection));
         return this;
     }
+    public MainPage checkAndClickHeaderSearchButton() {
+        headerSearchButton
+                .shouldBe(visible)
+                .click();
+        return this;
+    }
+    public MainPage checkSearchResultAndCorrectUrls(String searchQuery, String expectedHref) {
+        headerSearchTextArea
+                .shouldBe(visible)
+                .setValue(searchQuery)
+                .pressEnter();
+        searchResults.$$("a")
+                .findBy(href(expectedHref))
+                .shouldBe(visible);
+
+
+        return this;
+    }
+
 }
 
