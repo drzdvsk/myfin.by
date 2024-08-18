@@ -71,7 +71,7 @@ public class MainPageUITests {
     })
     @ParameterizedTest(name = "Поисковой запрос {0} содержит ссылку {1}")
     @DisplayName("Проверка поисковой строки и искомых результатов")
-    void checkHeaderSearchTextField(String searchQuery, String expectedHref) {
+    void checkHeaderSearchTextFieldTest(String searchQuery, String expectedHref) {
         mainPage
                 .checkAndClickHeaderSearchButton()
                 .checkSearchResultAndCorrectUrls(searchQuery, expectedHref);
