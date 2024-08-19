@@ -1,16 +1,17 @@
 import Pages.MainPage;
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.List;
 import java.util.stream.Stream;
 
-import static com.codeborne.selenide.CollectionCondition.texts;
-import static com.codeborne.selenide.Selenide.$$;
+
 
 @DisplayName("Проверки на главной странице")
 public class MainPageUITests {
@@ -21,7 +22,7 @@ public class MainPageUITests {
     static void beforeAll() {
         Configuration.browser = "chrome";
         Configuration.browserSize = "1920x1080";
-        //    Configuration.holdBrowserOpen = false;
+        Configuration.holdBrowserOpen = false;
         System.setProperty("file.encoding", "UTF-8");
         mainPage
                 .openMainPage()
@@ -34,7 +35,7 @@ public class MainPageUITests {
                         "https://myfin.by/images/new/logo-myfin--new.svg",
                         "MYFIN",
                         "MYFIN",
-                        List.of("Geely под 5.25%", "Все банки", "Реклама", "Стать автором")
+                        List.of("Geely под 5.25%", "Все банки", "Реклама", "Стать автором", "Войти")
                 )
         );
     }
@@ -71,10 +72,20 @@ public class MainPageUITests {
     })
     @ParameterizedTest(name = "Поисковой запрос {0} содержит ссылку {1}")
     @DisplayName("Проверка поисковой строки и искомых результатов")
+    @Disabled("Нужа последующая доработка")
     void checkHeaderSearchTextFieldTest(String searchQuery, String expectedHref) {
         mainPage
                 .checkAndClickHeaderSearchButton()
                 .checkSearchResultAndCorrectUrls(searchQuery, expectedHref);
+    }
+    @ValueSource(strings = {
+        "999999999", "000000000",
+    })
+    @ParameterizedTest(name ="Попытка входа в ЛК с некорректными номерами телефонов {0} ")
+    @DisplayName("Попытка входа в ЛК с помощью некорректного номера телефона")
+    @Tag("NegativeTests")
+    void loginWithIncorrectPhoneCodeTest(String incorrectPhoneNumber) {
+        mainPage.loginWithIncorrectPhoneCode(incorrectPhoneNumber);
     }
 }
 

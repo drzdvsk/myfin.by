@@ -14,7 +14,11 @@ public class MainPage {
             headerLogo = $(".header-upd__logo img"),
             headerSearchButton = $(".main-nav_btn-search"),
             headerSearchTextArea = $("input.main-nav_search.active"),
-            searchResults = $(".gsc-expansionArea");
+            searchResults = $(".gsc-expansionArea"),
+            signButton = $(".sign-btn"),
+            loginForm = $("#login-form-modal"),
+            loginFormPhoneInput = $("#login_form_phone"),
+            loginFormSubmitButton = $("div[data-login-form-btn='step-1']");
 
     public MainPage openMainPage() {
         open("https://myfin.by/");
@@ -38,11 +42,10 @@ public class MainPage {
                 .shouldHave(attribute("title", expectedTitle));
         return this;
     }
-    public MainPage checkMainPageHeaderMenu(List<String> expectedMenuSection) {
+    public void checkMainPageHeaderMenu(List<String> expectedMenuSection) {
         $$(".main-nav_link")
                 .filter(visible)
                 .shouldHave(texts(expectedMenuSection));
-        return this;
     }
     public MainPage checkAndClickHeaderSearchButton() {
         headerSearchButton
@@ -50,7 +53,7 @@ public class MainPage {
                 .click();
         return this;
     }
-    public MainPage checkSearchResultAndCorrectUrls(String searchQuery, String expectedHref) {
+    public void checkSearchResultAndCorrectUrls(String searchQuery, String expectedHref) {
         headerSearchTextArea
                 .shouldBe(visible)
                 .setValue(searchQuery)
@@ -58,10 +61,17 @@ public class MainPage {
         searchResults.$$("a")
                 .findBy(href(expectedHref))
                 .shouldBe(visible);
-
-
-        return this;
     }
+    public void loginWithIncorrectPhoneCode (String incorrectPhoneNumber) {
+        signButton.click();
+        loginForm
+                .shouldBe(visible)
+                .shouldHave(text("Вход или регистрация"));
+        loginFormPhoneInput
+                .setValue(incorrectPhoneNumber);
+        loginFormSubmitButton.shouldHave(cssClass("disabled"));
+        executeJavaScript("arguments[0].click();", $(".custom-modal__close"));
 
+    }
 }
 
