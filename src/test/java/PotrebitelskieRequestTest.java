@@ -15,13 +15,13 @@ public class PotrebitelskieRequestTest {
         Configuration.browserSize = "1920x1080";
         Configuration.baseUrl = "https://myfin.by/";
         Configuration.pageLoadStrategy = "eager";
-        Configuration.headless = true;
+        Configuration.headless = false;
         Configuration.holdBrowserOpen = false;
         System.setProperty("file.encoding", "UTF-8");
     }
 
     @Test
-    public void timerTimeMassRequestTest() {
+    public void timerTimeMassFormRequestTest() {
         potrebitelskiePage
                 .openPage()
                 .acceptCookie()
@@ -33,9 +33,8 @@ public class PotrebitelskieRequestTest {
                 .clickSubmit()
                 .happyMessage();
     }
-    @DisplayName("второй тест")
     @Test
-    public void listingProductRequestTest() {
+    public void listingProductFormRequestTest() {
         potrebitelskiePage
                 .openPage()
                 .acceptCookie()

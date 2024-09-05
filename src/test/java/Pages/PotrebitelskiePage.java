@@ -10,6 +10,7 @@ import static com.codeborne.selenide.Selenide.executeJavaScript;
 public class PotrebitelskiePage {
     private final SelenideElement
             cookie = $(".cookie__btn button"),
+            breadcrumbs = $("ul.breadcrumb"),
             timerTimeMassForm = $("#mass-form-in-modal"),
             timerTimeMob = $("#mass-form-in-modal #w0"),
             timerTimeFio = $("#mass-form-in-modal #onl_fio"),
@@ -109,5 +110,11 @@ public class PotrebitelskiePage {
     public void clickPrSubmit() {
         $(productSubmitButton).click();
     }
+    public void checkBreadcrumbs() {
+        $(breadcrumbs).shouldHave(text("Потребительские кредиты в Беларуси"));
+    }
+
+
+
 }
 
